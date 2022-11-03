@@ -6,23 +6,30 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  selected = 'Dark'
+  selected = 'dark'
   data = {
-    title: "Gold Books",
-    modes: [
-      {
-        key: "Light"
-      },
-      {
-        key: "Dark"
-      }
-    ]
+    title: "Gold Books"
   }
+  modes = [
+    {
+      key: "light",
+      value: "Light"
+    },
+    {
+      key: "dark",
+      value: "Dark"
+    }
+  ]
+
 
   constructor() {
   }
 
   ngOnInit(): void {
+  }
+
+  getMode(e: any) {
+    console.log(e)
   }
 
 }

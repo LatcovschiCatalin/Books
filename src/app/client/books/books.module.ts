@@ -6,6 +6,7 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {MatSelectModule} from "@angular/material/select";
 import {FooterComponent} from './footer/footer.component';
 import {TableModule} from "./table/table.module";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -15,9 +16,11 @@ import {TableModule} from "./table/table.module";
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     BooksRoutingModule,
     TableModule,
-    MatSelectModule
+    MatSelectModule,
   ]
 })
 export class BooksModule {
