@@ -2,15 +2,18 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BooksComponent} from './books.component';
 import {BooksRoutingModule} from "./books-routing.module";
-
+import {NavbarComponent} from './navbar/navbar.component';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
-    BooksComponent
+    BooksComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
-    BooksRoutingModule
+    BooksRoutingModule,
+    MatSelectModule
   ]
 })
 export class BooksModule {

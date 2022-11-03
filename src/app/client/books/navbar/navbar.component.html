@@ -1,0 +1,15 @@
+<nav class="nav">
+  <div class="left-side">
+    <img src="https://static.vecteezy.com/system/resources/thumbnails/006/800/199/small/creative-abstract-book-feather-logo-design-vector.jpg" alt="book">
+    <div class="title">{{data.title}}</div>
+  </div>
+  <mat-form-field appearance="fill">
+
+    <mat-select [(value)]="selected">
+      <mat-option *ngFor="let mode of data.modes" [value]="mode['key']">
+        {{mode['key']}}
+      </mat-option>
+    </mat-select>
+
+  </mat-form-field>
+</nav>
