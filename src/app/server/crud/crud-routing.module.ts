@@ -1,10 +1,15 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {BooksComponent} from "./books/books.component";
 
-const routes: Routes = [];
+
+const routes: Routes = [
+  {path: 'crud/books', component: BooksComponent},
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CrudRoutingModule { }
+export class CrudRoutingModule {
+}
