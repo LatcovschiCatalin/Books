@@ -9,11 +9,11 @@
     img {
       width: 50px;
       border-radius: 50%;
-      margin-right: 15px;
+      margin-right: 20px;
     }
 
     .title {
-      font-size: 21px;
+      font-size: 24px;
     }
   }
 
@@ -25,8 +25,8 @@
   background-color: $bg2;
   z-index: 124;
   display: flex;
-  max-height: 80px;
-  height: 80px;
+  max-height: 90px;
+  height: 90px;
   justify-content: space-between;
   align-items: center;
 }

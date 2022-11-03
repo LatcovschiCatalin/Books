@@ -4,11 +4,13 @@ import {BooksComponent} from './books.component';
 import {BooksRoutingModule} from "./books-routing.module";
 import {NavbarComponent} from './navbar/navbar.component';
 import {MatSelectModule} from "@angular/material/select";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     BooksComponent,
-    NavbarComponent
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
