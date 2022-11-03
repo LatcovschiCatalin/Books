@@ -1,0 +1,11 @@
+@import "src/assets/styles/global";
+
+.content {
+  background: $bg2;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: calc(100% - 3rem);
+  min-height: calc(100vh - 180px - 3rem);
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
