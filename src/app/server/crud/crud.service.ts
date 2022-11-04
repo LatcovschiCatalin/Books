@@ -20,7 +20,7 @@ export class CrudService {
   constructor(private httpClient: HttpClient) {
   }
 
-  create(book: Books): Observable<Books> {
+  post(book: Books): Observable<Books> {
     return this.httpClient.post<Books>(this.apiServer + '/posts/', JSON.stringify(book), this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
@@ -34,21 +34,21 @@ export class CrudService {
       )
   }
 
-  getAll(): Observable<Books[]> {
+  get(): Observable<Books[]> {
     return this.httpClient.get<Books[]>(this.apiServer + '/posts/')
       .pipe(
         catchError(this.errorHandler)
       )
   }
 
-  update(id: any, book: Books): Observable<Books> {
+  put(book: Books, id: any): Observable<Books> {
     return this.httpClient.put<Books>(this.apiServer + '/posts/' + id, JSON.stringify(book), this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
       )
   }
 
-  delete(id: any) {
+  deleteById(id: any) {
     return this.httpClient.delete<Books>(this.apiServer + '/posts/' + id, this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
