@@ -25,6 +25,11 @@ export class TableComponent implements OnInit {
       name: 'Author',
     },
     {
+      key: 'image',
+      name: 'Image',
+      type: 'image'
+    },
+    {
       key: 'genre',
       name: 'Genre',
     },
