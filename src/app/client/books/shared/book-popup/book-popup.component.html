@@ -1,0 +1,13 @@
+<div class="popup">
+  <div class="dialog-header">
+    <div class="dialog-title">Add book</div>
+    <img src="assets/icons/close.svg" (click)="closeDialog()" alt="close">
+  </div>
+
+  <div mat-dialog-content>
+    <app-custom-form class="dialog-content"
+                     (onClose)="closeDialog()"
+                     [formConfig]="{formData:request.labels,service:service,imageButton:true,labels:true}">
+    </app-custom-form>
+  </div>
+</div>
