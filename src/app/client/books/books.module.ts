@@ -7,6 +7,8 @@ import {FooterComponent} from './footer/footer.component';
 import {TableModule} from "./table/table.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSelectModule} from "@angular/material/select";
+import {CrudService} from "../../server/crud/crud.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -16,12 +18,14 @@ import {MatSelectModule} from "@angular/material/select";
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
     BooksRoutingModule,
     TableModule,
     MatSelectModule,
-  ]
+  ],
+  providers: [CrudService]
 })
 export class BooksModule {
 }
