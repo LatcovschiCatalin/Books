@@ -1,0 +1,27 @@
+@import "src/assets/styles/global";
+
+.inputFile {
+  display: none;
+}
+
+input {
+  margin-bottom: 0;
+}
+
+.custom-image-upload {
+  margin-bottom: 1rem;
+
+  .upload-image {
+    height: 300px;
+  }
+
+  .title {
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+.actions{
+  display: flex;
+  align-items: center;
+}

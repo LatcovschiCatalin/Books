@@ -1,0 +1,39 @@
+<div [ngClass]="'custom-image-upload'">
+
+  <div class="file-upload">
+
+    <div class="custom-file-upload">
+
+
+      <input #imageInput
+             type="file"
+             id="file"
+             class="inputFile"
+             [accept]="'image/*'"
+             (change)="processFile(imageInput)">
+    </div>
+
+    <div class="actions">
+      <label for="file">
+        <div class="img-button bottom"
+             [ngStyle]="{marginBottom: fileUrl ? '20px' : '0'}">
+          <img src="assets/icons/upload2.svg" alt="upload">
+        </div>
+      </label>
+      <label>
+        <div class="clear" *ngIf="fileUrl || uploadConfig.url"
+             [ngStyle]="{marginBottom: fileUrl || uploadConfig.url ? '20px' : '0'}"
+             (click)="deleteFile()">
+          <img src="assets/icons/clear.svg" alt="clear">
+        </div>
+      </label>
+
+    </div>
+
+  </div>
+  <div class="show-image" *ngIf="fileUrl || uploadConfig.url">
+    <img class="upload-image"
+         [src]="fileUrl || uploadConfig.url" alt="upload">
+  </div>
+</div>
+
