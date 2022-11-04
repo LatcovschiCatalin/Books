@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {CrudService} from "../../../../server/crud/crud.service";
 import {validationMessages} from "../../../constants";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-book-popup',
@@ -10,7 +11,7 @@ import {validationMessages} from "../../../constants";
   encapsulation: ViewEncapsulation.None
 })
 export class BookPopupComponent implements OnInit {
-  validationMessages = validationMessages;
+  mode = 'dark';
   validators = {
     required: {
       type: 'required',
@@ -68,8 +69,10 @@ export class BookPopupComponent implements OnInit {
 
   constructor(
     public service: CrudService,
+    private cookieService: CookieService,
     public dialogRef: MatDialogRef<BookPopupComponent>
   ) {
+    this.mode = this.cookieService.get('mode') || 'dark';
   }
 
 

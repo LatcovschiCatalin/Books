@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSelectModule} from "@angular/material/select";
 import {CrudService} from "../../server/crud/crud.service";
 import {HttpClientModule} from "@angular/common/http";
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import {HttpClientModule} from "@angular/common/http";
     TableModule,
     MatSelectModule,
   ],
-  providers: [CrudService]
+  providers: [CrudService, CookieService]
 })
 export class BooksModule {
 }

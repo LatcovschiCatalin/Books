@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from "rxjs";
+import {CookieService} from "ngx-cookie-service";
 
 class fileSnippet {
   constructor(public src: string, public file: File) {
@@ -17,8 +18,10 @@ export class CustomFileUploadComponent implements OnInit, OnDestroy {
   selectedFile: fileSnippet | undefined;
   fileUrl: any;
   observables: Subscription[] = [];
+  mode = 'dark';
 
-  constructor() {
+  constructor(private cookieService: CookieService) {
+    this.mode = this.cookieService.get('mode') || 'dark';
   }
 
 

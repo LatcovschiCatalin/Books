@@ -1,7 +1,7 @@
 <div class="popup">
   <div class="dialog-header">
     <div class="dialog-title">Add book</div>
-    <img src="assets/icons/close.svg" (click)="closeDialog()" alt="close">
+    <img [src]="'assets/icons/' + mode + '/close.svg'" (click)="closeDialog()" alt="close">
   </div>
 
   <div mat-dialog-content>

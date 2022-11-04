@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {QueryParamsService} from "../../services/query-params.service";
 import {CrudService} from "../../../server/crud/crud.service";
 import {BookPopupComponent} from "../shared/book-popup/book-popup.component";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-table',
@@ -9,7 +10,7 @@ import {BookPopupComponent} from "../shared/book-popup/book-popup.component";
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-
+  mode = 'dark'
   popup = BookPopupComponent;
   columns = [
     {
@@ -34,21 +35,24 @@ export class TableComponent implements OnInit {
       name: 'Genre',
     },
   ];
-  actions = [
-    {
-      key: 'edit',
-      icon: '/assets/icons/edit.png'
-    },
-    {
-      key: 'delete',
-      icon: '/assets/icons/trash.png'
-    }
-  ]
+  actions: object[] = []
 
   constructor(
     public qpService: QueryParamsService,
-    public service: CrudService
+    public service: CrudService,
+    private cookieService: CookieService
   ) {
+    this.mode = this.cookieService.get('mode') || 'dark';
+    this.actions = [
+      {
+        key: 'edit',
+        icon: '/assets/icons/' + this.mode + '/edit.png'
+      },
+      {
+        key: 'delete',
+        icon: '/assets/icons/' + this.mode + '/trash.png'
+      }
+    ]
   }
 
   ngOnInit() {

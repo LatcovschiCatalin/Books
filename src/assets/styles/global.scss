@@ -1,13 +1,24 @@
-$bg1: #151a30;
-$bg2: #222b45;
-$text: #fff;
-$shadow: #1a1f33;
+:root {
+  --primary-bg: #151a30;
+  --secondary-bg: #222b45;
+  --text: #fff;
+  --shadow: #1a1f33;
+  --select: #151a30;
+  --odd: #192038;
+  --input-bg: rgba(255, 255, 255, 0.3)
+}
+
+
+$bg1: var(--primary-bg);
+$bg2: var(--secondary-bg);
+$text: var(--text);
+$shadow: var(--shadow);
 $active: #36f;
-$select-color: #151a30;
-$odd-color: #192038;
+$select-color: var(--select);
+$odd-color: var(--odd);
 $clear: #ff0000;
 $input-color: #cdcdcd;
-$input-bg: rgba(255, 255, 255, 0.3);
+$input-bg: var(--input-bg);
 $backdrop-filter: blur(15px);
 $letter-spacing: 0.04em;
 $font-family: 'Poppins', sans-serif;

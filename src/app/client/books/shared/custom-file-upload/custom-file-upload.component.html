@@ -17,14 +17,14 @@
       <label for="file">
         <div class="img-button bottom"
              [ngStyle]="{marginBottom: fileUrl || uploadConfig.url ? '20px' : '0'}">
-          <img src="assets/icons/upload2.svg" alt="upload">
+          <img [src]="'assets/icons/' + mode + '/upload.svg'" alt="upload">
         </div>
       </label>
       <label>
         <div class="clear" *ngIf="fileUrl || uploadConfig.url"
              [ngStyle]="{marginBottom: fileUrl || uploadConfig.url ? '20px' : '0'}"
              (click)="deleteFile()">
-          <img src="assets/icons/clear.svg" alt="clear">
+          <img [src]="'assets/icons/' + mode + '/clear.svg'" alt="clear">
         </div>
       </label>
 

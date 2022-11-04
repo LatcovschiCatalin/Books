@@ -3,7 +3,7 @@
   <div class="contacts">
     <div class="app" *ngFor="let app of media">
       <a [href]="app['link']">
-        <img [src]="'assets/icons/' + app['key'] + '.svg'" [alt]="app['key']">
+        <img [src]="'assets/icons/' + mode + '/' + app['key'] + '.svg'" [alt]="app['key']">
       </a>
     </div>
   </div>

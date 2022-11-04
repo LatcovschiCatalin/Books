@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {CustomFormService} from "./custom-form.service";
 import {Subscription} from "rxjs";
 import {Books} from "../../../../server/crud/books";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-custom-form',
@@ -24,8 +25,10 @@ export class CustomFormComponent implements OnInit, OnDestroy {
   response: any;
   selectedFile: any;
   observables: Subscription[] = [];
+  mode = 'dark';
 
-  constructor(private route: ActivatedRoute, public customFormService: CustomFormService) {
+  constructor(private route: ActivatedRoute, public customFormService: CustomFormService, private cookieService: CookieService) {
+    this.mode = this.cookieService.get('mode') || 'dark';
   }
 
   ngOnInit(): void {

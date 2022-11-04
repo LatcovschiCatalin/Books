@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-footer',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
-
+  mode = 'dark';
   media = [
     {
       key: "linkedin",
@@ -17,7 +18,10 @@ export class FooterComponent implements OnInit {
       link: "https://github.com/catalin572"
     }
   ]
-  constructor() { }
+
+  constructor(private cookieService: CookieService) {
+    this.mode = this.cookieService.get('mode') || 'dark';
+  }
 
   ngOnInit(): void {
   }

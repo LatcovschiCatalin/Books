@@ -4,6 +4,7 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {CustomFormService} from "../custom-form/custom-form.service";
 import {MatDialog} from "@angular/material/dialog";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-custom-table',
@@ -40,11 +41,13 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   fieldWidth: any;
   genre = '';
   genres: string[] = [];
+  mode = '';
 
-  constructor(public dialog: MatDialog, private qpService: QueryParamsService, private route: ActivatedRoute, public customFormService: CustomFormService) {
+  constructor(public dialog: MatDialog, private qpService: QueryParamsService, private route: ActivatedRoute, private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
+    this.mode = this.cookieService.get('mode') || 'dark';
     this.showSort(false);
     this.fieldWidth = (this.width - 126) / this.width * 100 / (this.displayedColumns.length - 1) / 100 * this.width;
     this.observables.push(this.route.queryParams.subscribe(res => {

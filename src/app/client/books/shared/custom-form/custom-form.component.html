@@ -28,7 +28,7 @@
   <div class="save">
     <button type="submit" (click)="onSubmit()">
       <div class="image-send">
-        <img src="assets/icons/post.svg" alt="post">
+        <img [src]="'assets/icons/' + mode + '/post.svg'" alt="post">
       </div>
     </button>
   </div>

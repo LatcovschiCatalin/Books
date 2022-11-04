@@ -3,7 +3,7 @@
     <app-books-genre [genres]="genres" (setGenre)="getGenre($event)"></app-books-genre>
     <div class="img-button" *ngIf="tableConfig.addData">
       <img (click)="onAction('get')"
-           [src]="'assets/icons/add.svg'" alt="add">
+           [src]="'assets/icons/' + mode + '/add.svg'" alt="add">
     </div>
   </div>
   <div class="smart-table">
@@ -11,18 +11,18 @@
       <div class="arrange-array">
         <div class="sort-buttons">
           <div class="img-button" (click)="showSort(true)">
-            <img [src]="'assets/icons/sort.svg'" alt="sort">
+            <img [src]="'assets/icons/' + mode + '/sort.svg'" alt="sort">
           </div>
           <div class="clear" *ngIf="show_sort && data?.length>0"
                (click)="showSort(false)">
-            <img [src]="'assets/icons/clear.svg'" alt="clear">
+            <img [src]="'assets/icons/' + mode + '/clear.svg'" alt="clear">
           </div>
         </div>
         <div class="search-section">
           <input matInput [placeholder]="'Search...'" class="search" [(ngModel)]="searchTerm"
                  (keyup.enter)="search()">
           <div class="img-button" (click)="search()">
-            <img [src]="'assets/icons/search.svg'" alt="search"></div>
+            <img [src]="'assets/icons/' + mode + '/search.svg'" alt="search"></div>
         </div>
       </div>
     </div>
@@ -45,9 +45,9 @@
             <div class="th-content">
               {{ column.name}}
               <img class="sort-img" *ngIf="column.key === sort; else asc"
-                   [src]="'assets/icons/' + order.toLowerCase() +'.svg'" alt="sort">
+                   [src]="'assets/icons/' + mode + '/' + order.toLowerCase() +'.svg'" alt="sort">
               <ng-template #asc>
-                <img class="sort-img" *ngIf="show_sort" [src]="'assets/icons/des.svg'" alt="des">
+                <img class="sort-img" *ngIf="show_sort" [src]="'assets/icons/' + mode + '/des.svg'" alt="des">
               </ng-template>
             </div>
 
