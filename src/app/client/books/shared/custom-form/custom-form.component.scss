@@ -1,0 +1,159 @@
+@import 'src/assets/styles/global';
+
+$border-color: #1bdb54;
+
+.group_line {
+  @include my-30(margin-top);
+  justify-content: space-between;
+}
+
+.save {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  border: none !important;
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+
+  .label {
+    margin-bottom: 0 !important;
+  }
+
+  .checkbox {
+    margin-left: 20px;
+  }
+}
+
+.label {
+  color: $text;
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+
+.custom-input, textarea {
+  @include text;
+  @include input-padding;
+  background: $input-bg;
+  backdrop-filter: $backdrop-filter;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  color: $input-color;
+
+  &::placeholder {
+    @include text;
+    color: $input-color;
+  }
+}
+
+textarea {
+  @include text;
+  font-family: $font-family;
+}
+
+.send {
+  @include text-styles;
+  @include min-title;
+  @include my-30(margin-top);
+  font-weight: 300;
+  display: flex;
+  margin-left: auto;
+  border: 1px solid $active !important;
+  border-radius: 10px;
+  background: transparent;
+  outline: none;
+  color: $text;
+}
+
+.custom-form-control {
+  width: 100%;
+}
+
+.image-send {
+  padding: 1rem;
+  cursor: pointer;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-bottom: 10px;
+
+  img {
+    width: 32px;
+  }
+}
+
+.image-button {
+  background: transparent;
+  display: flex;
+  margin-left: auto;
+  border: none;
+  padding: 0;
+  margin-top: 1.5rem;
+  outline: none;
+}
+
+
+@media (min-width: 767px) {
+  .custom-input {
+    min-height: 45px;
+  }
+
+  .custom-form-control {
+    &.right {
+      margin-left: 10px;
+    }
+
+    &.left {
+      margin-right: 10px;
+    }
+  }
+
+}
+
+
+@media (min-width: 500px) and (max-width: 767px) {
+
+  .custom-input {
+    min-height: 35px;
+  }
+}
+
+@media (min-width: 500px) {
+  .group_line {
+    display: flex;
+  }
+
+  .custom-input {
+    width: 100%;
+  }
+  .custom-form-control {
+    &.right {
+      margin-left: 10px;
+    }
+
+    &.left {
+      margin-right: 10px;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .left {
+    margin-bottom: 15px;
+  }
+  .custom-input {
+    min-height: 30px;
+    width: 100%;
+  }
+
+  .group_line {
+    display: block;
+  }
+}

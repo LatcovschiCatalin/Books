@@ -1,0 +1,35 @@
+<form [formGroup]="customForm" class="form" [ngStyle]="{marginRight : formConfig.tabs ? '15px' : '0'}">
+  <div class="group_line" *ngFor="let items of formConfig?.formData;let i = index">
+    <div class="custom-form-control" *ngFor="let item of formConfig?.formData[i];let j = index"
+         [ngClass]="{'invalid': customForm.get(item.key)?.invalid && (customForm.get(item.key)?.dirty || customForm.get(item.key)?.touched), 'left': (j % 2 == 0 && j + 1 !== formConfig.formData[i].length), 'right': j % 2 == 1, 'inline': item.type === 'checkbox'}">
+      <div class="label" *ngIf="formConfig?.labels">{{item.title}}</div>
+      <input class="custom-input"
+             *ngIf="item.type !== 'image'"
+             [type]="item.type"
+             [formControlName]="item.key"
+             [placeholder]="item.title"
+      />
+      <app-custom-file-upload *ngIf="item.type === 'image'"
+                              [uploadConfig]="{url:id ? data[item.key] : ''}"
+                              (getFile)="upload(item.key, $event)"
+      ></app-custom-file-upload>
+      <div
+        *ngIf="customForm.get(item.key)?.invalid && (customForm.get(item.key)?.dirty || customForm.get(item.key)?.touched)"
+        class="errors">
+        <div class="error" *ngFor="let err of formConfig?.formData[i][j].validators">
+          <div *ngIf="customForm.get(item.key)?.errors?.[err?.type?.toLowerCase()]">
+            {{err.message}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="save">
+    <button type="submit" (click)="onSubmit()">
+      <div class="image-send">
+        <img src="assets/icons/post.svg" alt="post">
+      </div>
+    </button>
+  </div>
+</form>
