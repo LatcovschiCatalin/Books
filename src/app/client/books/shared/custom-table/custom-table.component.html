@@ -55,7 +55,7 @@
           <td mat-cell *matCellDef="let el"
               [ngStyle]="{width:fieldWidth + 'px'}"
           >
-            <img *ngIf="column.type === 'image'; else normal" [src]="el[column.key]" alt="image">
+            <img class="img-column" *ngIf="column.type === 'image'; else normal" [src]="el[column.key]" alt="image">
 
             <ng-template #normal>
               <div>

@@ -16,7 +16,7 @@
     <div class="actions">
       <label for="file">
         <div class="img-button bottom"
-             [ngStyle]="{marginBottom: fileUrl ? '20px' : '0'}">
+             [ngStyle]="{marginBottom: fileUrl || uploadConfig.url ? '20px' : '0'}">
           <img src="assets/icons/upload2.svg" alt="upload">
         </div>
       </label>
