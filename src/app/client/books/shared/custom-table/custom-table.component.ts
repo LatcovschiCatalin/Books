@@ -36,6 +36,7 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   docs = 0;
   page = 1;
   data: any;
+  changedData: any;
   show_sort = false;
   searchTerm = '';
   sort = '';
@@ -100,7 +101,20 @@ export class CustomTableComponent implements OnInit, OnDestroy {
 
   search() {
     this.qpService.updateParam('searchTerm', this.searchTerm);
-    this.getData();
+
+    this.changedData = this.data.filter((el: any) => {
+      let keys = Object.keys(el).filter(key => (
+        key !== 'image'
+      ))
+      let finalRow = {};
+      for (let a = 0; a < keys.length; a++) {
+        // @ts-ignore
+        finalRow[keys[a]] = el[keys[a]]
+      }
+      return JSON.stringify(finalRow).toLowerCase().includes(this.searchTerm);
+    })
+    this.docs = this.changedData.length;
+
   }
 
   getData() {
@@ -108,6 +122,7 @@ export class CustomTableComponent implements OnInit, OnDestroy {
       this.qpService.updateParam('totalItems', data.length);
       this.data = data || [];
       this.docs = this.data.length;
+      this.search();
     });
   }
 

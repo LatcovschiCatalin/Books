@@ -28,7 +28,7 @@
     </div>
     <table
       mat-table
-      [dataSource]="data"
+      [dataSource]="changedData?changedData:data"
       class="mat-elevation-z8 table"
       *ngIf="data?.length>0  && docs>0; else noTableData"
     >
@@ -87,10 +87,14 @@
                    [pageSizeOptions]="limit"
                    [pageSize]="limit_docs"
                    (page)="onPaginateChange($event)"
-                   *ngIf="data?.length>0"
+                   *ngIf="changedData?.length>0"
                    aria-label="Select page">
     </mat-paginator>
 
-    <ng-template #noTableData>No data found.</ng-template>
+    <ng-template #noTableData>
+      <div class="unfounded">
+        No data found.
+      </div>
+    </ng-template>
   </div>
 </div>
