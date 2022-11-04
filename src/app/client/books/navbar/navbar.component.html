@@ -8,7 +8,7 @@
   <mat-form-field>
     <mat-select (selectionChange)="getMode($event.value)"
                 [(ngModel)]="selected">
-      <mat-option *ngFor="let mode of modes" [value]="mode.key">
+      <mat-option *ngFor="let mode of modes" [value]="mode.key" class="option">
         {{mode.value}}
       </mat-option>
     </mat-select>
