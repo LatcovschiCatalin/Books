@@ -10,6 +10,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatTableModule} from "@angular/material/table";
 import {MatDialogModule} from "@angular/material/dialog";
 import {CustomFormService} from "./custom-form/custom-form.service";
+import { BooksGenreComponent } from './books-genre/books-genre.component';
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -17,7 +19,8 @@ import {CustomFormService} from "./custom-form/custom-form.service";
     CustomTableComponent,
     CustomFileUploadComponent,
     BookPopupComponent,
-    CustomFormComponent
+    CustomFormComponent,
+    BooksGenreComponent
   ],
   exports: [
     CustomTableComponent
@@ -29,7 +32,8 @@ import {CustomFormService} from "./custom-form/custom-form.service";
     FormsModule,
     MatTableModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule
   ],
   providers: [CustomFormService]
 })

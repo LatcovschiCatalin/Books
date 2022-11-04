@@ -1,6 +1,6 @@
 <div class="item-content">
   <div class="header">
-    <div class="section-title">{{tableConfig.title}}</div>
+    <app-books-genre [genres]="genres" (setGenre)="getGenre($event)"></app-books-genre>
     <div class="img-button" *ngIf="tableConfig.addData">
       <img (click)="onAction('get')"
            [src]="'assets/icons/add.svg'" alt="add">
@@ -30,7 +30,7 @@
       mat-table
       [dataSource]="pageData?pageData:changedData?changedData:data"
       class="mat-elevation-z8 table"
-      *ngIf="data?.length>0  && docs>0; else noTableData"
+      *ngIf="data?.length>0  && changedData.length>0; else noTableData"
     >
 
       <div class="columns" *ngFor="let column of sourceColumns">
@@ -82,7 +82,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
     <mat-paginator class="paginator"
-                   [length]="docs"
+                   [length]="this.changedData.length"
                    [pageIndex]="page - 1"
                    [pageSizeOptions]="limit"
                    [pageSize]="limit_docs"

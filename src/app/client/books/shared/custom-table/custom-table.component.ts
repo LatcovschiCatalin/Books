@@ -25,9 +25,8 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   displayedColumns: any;
   sourceColumns: any;
 
-  limit = [1, 10, 20, 50, 100];
+  limit = [10, 20, 50, 100];
   limit_docs = 10;
-  docs = 0;
   page = 1;
   data: any;
   changedData: any;
@@ -39,6 +38,8 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   observables: Subscription[] = [];
   width = window.innerWidth - 370;
   fieldWidth: any;
+  genre = '';
+  genres: string[] = [];
 
   constructor(public dialog: MatDialog, private qpService: QueryParamsService, private route: ActivatedRoute, public customFormService: CustomFormService) {
   }
@@ -57,6 +58,10 @@ export class CustomTableComponent implements OnInit, OnDestroy {
         this.page = 1;
       }
 
+      if (res['genre']) {
+        this.genre = res['genre'];
+      }
+
       if (res['limit']) {
         this.limit_docs = Number(res['limit']);
       } else {
@@ -66,6 +71,10 @@ export class CustomTableComponent implements OnInit, OnDestroy {
     }))
     this.getData();
 
+  }
+
+  onlyUnique(value: string, index: number, self: any) {
+    return self.indexOf(value) === index;
   }
 
   showSort(show: boolean) {
@@ -98,15 +107,14 @@ export class CustomTableComponent implements OnInit, OnDestroy {
       let keys = Object.keys(el).filter(key => (
         key !== 'image'
       ))
-      let finalRow = {};
+      let finalRow: any = {};
       for (let a = 0; a < keys.length; a++) {
-        // @ts-ignore
         finalRow[keys[a]] = el[keys[a]]
       }
       return JSON.stringify(finalRow).toLowerCase().includes(this.searchTerm);
     })
-    this.docs = this.changedData.length;
-    this.sortData(this.sort, this.order)
+    this.sortData(this.sort, this.order);
+    this.getGenre(this.genre);
     this.refreshPage();
 
   }
@@ -114,9 +122,14 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   getData() {
     this.tableConfig?.service.get().subscribe((data: any) => {
       this.qpService.updateParam('totalItems', data.length);
+      let genres: string[] = [];
+      for (let i = 0; i < data.length; i++) {
+        genres.push(data[i]['genre'].toLowerCase())
+      }
+      this.genres = genres.filter(this.onlyUnique);
       this.data = data || [];
-      this.docs = this.data.length;
       this.search();
+      this.getGenre(this.genre);
       this.refreshPage();
     });
   }
@@ -171,10 +184,24 @@ export class CustomTableComponent implements OnInit, OnDestroy {
     }
   }
 
+  getGenre(e: string) {
+    if (e.length) {
+      this.genre = e;
+      let filteredBooks: object[] = [];
+      for (let i = 0; i < this.data.length; i++) {
+        if (this.data[i].genre.toLowerCase().replace(' ', '') === e.toLowerCase().replace(' ', '')) {
+          filteredBooks.push(this.data[i])
+        }
+      }
+      this.changedData = filteredBooks;
+      this.refreshPage();
+    }
+  }
 
   ngOnDestroy() {
     this.observables.forEach(obs => {
       obs.unsubscribe();
     })
   }
+
 }
