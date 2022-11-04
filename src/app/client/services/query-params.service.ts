@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class QueryParamsService {
+
+  observables: Subscription[] = [];
 
   constructor(public router: Router, public activatedRoute: ActivatedRoute) {
   }
@@ -66,4 +68,11 @@ export class QueryParamsService {
         queryParams: {}
       }).catch(console.error);
   }
+
+  ngOnDestroy() {
+    this.observables.forEach(obs => {
+      obs.unsubscribe();
+    })
+  }
+
 }
