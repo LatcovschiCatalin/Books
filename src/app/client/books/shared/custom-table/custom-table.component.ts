@@ -1,16 +1,9 @@
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewEncapsulation,} from '@angular/core';
 import {QueryParamsService} from "../../../services/query-params.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {CustomFormService} from "../custom-form/custom-form.service";
 import {MatDialog} from "@angular/material/dialog";
-import {Books} from "../../../../server/crud/books";
 
 @Component({
   selector: 'app-custom-table',
@@ -32,12 +25,13 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   displayedColumns: any;
   sourceColumns: any;
 
-  limit = [10, 20, 50, 100];
+  limit = [1, 10, 20, 50, 100];
   limit_docs = 10;
   docs = 0;
   page = 1;
   data: any;
   changedData: any;
+  pageData: any;
   show_sort = false;
   searchTerm = '';
   sort = '';
@@ -78,8 +72,6 @@ export class CustomTableComponent implements OnInit, OnDestroy {
     this.show_sort = show;
     if (!this.show_sort) {
       this.qpService.deleteParams({'sort': null, 'order': null});
-      this.sort = 'createdAt';
-      this.order = 'DES';
     }
   }
 
@@ -96,11 +88,8 @@ export class CustomTableComponent implements OnInit, OnDestroy {
       this.sort = sort;
       this.order = ord;
       this.changedData.sort((a: any, b: any) => (ord == 'DES' ? a[sort] < b[sort] : a[sort] > b[sort]) ? 1 : -1)
-      this.changedData = this.changedData.filter((el: Books) => {
-         return el
-      })
+      this.refreshPage();
     }
-
   }
 
   search() {
@@ -117,9 +106,9 @@ export class CustomTableComponent implements OnInit, OnDestroy {
       return JSON.stringify(finalRow).toLowerCase().includes(this.searchTerm);
     })
     this.docs = this.changedData.length;
-    if (!this.show_sort) {
-      this.sortData(this.sort)
-    }
+    this.sortData(this.sort, this.order)
+    this.refreshPage();
+
   }
 
   getData() {
@@ -128,6 +117,7 @@ export class CustomTableComponent implements OnInit, OnDestroy {
       this.data = data || [];
       this.docs = this.data.length;
       this.search();
+      this.refreshPage();
     });
   }
 
@@ -142,12 +132,27 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   onPaginateChange(e: any) {
     if (e.pageSize !== this.limit_docs) {
       this.limit_docs = e.pageSize;
+      this.page = 1;
       this.qpService.updateParam('limit', this.limit_docs);
     } else if (e.pageIndex + 1 !== this.page) {
       this.page = Number(e.pageIndex) + 1;
       this.qpService.updateParam('page', this.page);
     }
-    this.getData();
+    this.refreshPage();
+  }
+
+  refreshPage() {
+    let total = this.changedData?.length;
+    let finalData: object[] = [];
+    let initial = (this.page - 1) * this.limit_docs;
+    let next = initial + this.limit_docs;
+    let last = next > total ? total : next;
+    for (let i = initial; i < last; i++) {
+      finalData.push(this.changedData[i])
+    }
+    this.pageData = finalData.filter((el: any) => {
+      return el
+    })
   }
 
   onAction(key: any, id?: any) {

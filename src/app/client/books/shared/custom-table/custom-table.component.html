@@ -28,7 +28,7 @@
     </div>
     <table
       mat-table
-      [dataSource]="changedData?changedData:data"
+      [dataSource]="pageData?pageData:changedData?changedData:data"
       class="mat-elevation-z8 table"
       *ngIf="data?.length>0  && docs>0; else noTableData"
     >
