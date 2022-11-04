@@ -10,6 +10,7 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {CustomFormService} from "../custom-form/custom-form.service";
 import {MatDialog} from "@angular/material/dialog";
+import {Books} from "../../../../server/crud/books";
 
 @Component({
   selector: 'app-custom-table',
@@ -79,7 +80,6 @@ export class CustomTableComponent implements OnInit, OnDestroy {
       this.qpService.deleteParams({'sort': null, 'order': null});
       this.sort = 'createdAt';
       this.order = 'DES';
-      this.getData();
     }
   }
 
@@ -95,13 +95,16 @@ export class CustomTableComponent implements OnInit, OnDestroy {
       this.qpService.updateParams({sort: sort, order: ord});
       this.sort = sort;
       this.order = ord;
-      this.getData();
+      this.changedData.sort((a: any, b: any) => (ord == 'DES' ? a[sort] < b[sort] : a[sort] > b[sort]) ? 1 : -1)
+      this.changedData = this.changedData.filter((el: Books) => {
+         return el
+      })
     }
+
   }
 
   search() {
     this.qpService.updateParam('searchTerm', this.searchTerm);
-
     this.changedData = this.data.filter((el: any) => {
       let keys = Object.keys(el).filter(key => (
         key !== 'image'
@@ -114,7 +117,9 @@ export class CustomTableComponent implements OnInit, OnDestroy {
       return JSON.stringify(finalRow).toLowerCase().includes(this.searchTerm);
     })
     this.docs = this.changedData.length;
-
+    if (!this.show_sort) {
+      this.sortData(this.sort)
+    }
   }
 
   getData() {
