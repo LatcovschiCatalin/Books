@@ -192,9 +192,9 @@ export class CustomTableComponent implements OnInit, OnDestroy {
     if (e.length) {
       if (e == 'All') {
         this.genre = e;
+        this.qpService.updateParams({genre: e});
         if (!search) {
           this.changedData = this.data;
-          this.qpService.updateParams({genre: e});
           this.search();
         }
       } else {
