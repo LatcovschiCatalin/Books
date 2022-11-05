@@ -11,19 +11,20 @@ export class BooksGenreComponent implements OnInit {
 
   @Output() setGenre = new EventEmitter;
   @Input() genres: any;
-  selected = 'Select';
+  selected = 'All';
 
   constructor(private qpService: QueryParamsService) {
   }
 
   ngOnInit(): void {
     this.qpService.getParamSubs('genre').subscribe((res) => {
-      this.selected = res;
+      console.log(res)
+      this.selected = res || 'All';
     })
   }
 
   getGenre(e: any) {
-    this.qpService.updateParam('genre', e)
+    this.qpService.updateParams({genre: e})
     this.setGenre.emit(e)
   }
 

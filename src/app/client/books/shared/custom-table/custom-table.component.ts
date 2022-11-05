@@ -2,7 +2,6 @@ import {Component, Input, OnDestroy, OnInit, ViewEncapsulation,} from '@angular/
 import {QueryParamsService} from "../../../services/query-params.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {CustomFormService} from "../custom-form/custom-form.service";
 import {MatDialog} from "@angular/material/dialog";
 import {CookieService} from "ngx-cookie-service";
 
@@ -105,7 +104,7 @@ export class CustomTableComponent implements OnInit, OnDestroy {
   }
 
   search() {
-    this.qpService.updateParam('searchTerm', this.searchTerm);
+    this.qpService.updateParams({searchTerm: this.searchTerm});
     this.changedData = this.data.filter((el: any) => {
       let keys = Object.keys(el).filter(key => (
         key !== 'image'
@@ -116,10 +115,9 @@ export class CustomTableComponent implements OnInit, OnDestroy {
       }
       return JSON.stringify(finalRow).toLowerCase().includes(this.searchTerm);
     })
+    this.getGenre(this.genre, true);
     this.sortData(this.sort, this.order);
-    this.getGenre(this.genre);
     this.refreshPage();
-
   }
 
   getData() {
@@ -129,7 +127,10 @@ export class CustomTableComponent implements OnInit, OnDestroy {
       for (let i = 0; i < data.length; i++) {
         genres.push(data[i]['genre'].toLowerCase())
       }
-      this.genres = genres.filter(this.onlyUnique);
+      this.genres = [
+        'All',
+        ...genres.filter(this.onlyUnique)
+      ];
       this.data = data || [];
       this.search();
       this.getGenre(this.genre);
@@ -187,17 +188,31 @@ export class CustomTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  getGenre(e: string) {
+  getGenre(e: string, search?: boolean) {
     if (e.length) {
-      this.genre = e;
-      let filteredBooks: object[] = [];
-      for (let i = 0; i < this.data.length; i++) {
-        if (this.data[i].genre.toLowerCase().replace(' ', '') === e.toLowerCase().replace(' ', '')) {
-          filteredBooks.push(this.data[i])
+      if (e == 'All') {
+        this.genre = e;
+        if (!search) {
+          this.changedData = this.data;
+          this.qpService.updateParams({genre: e});
+          this.search();
         }
+      } else {
+        this.genre = e;
+        this.qpService.updateParams({genre: e});
+        let filteredBooks: object[] = [];
+        for (let i = 0; i < this.changedData.length; i++) {
+          if (this.changedData[i].genre.toLowerCase().replace(' ', '') === e.toLowerCase().replace(' ', '')) {
+            filteredBooks.push(this.changedData[i])
+          }
+        }
+        this.changedData = filteredBooks;
+        this.sortData(this.sort, this.order);
+        if (!search) {
+          this.search();
+        }
+        this.refreshPage();
       }
-      this.changedData = filteredBooks;
-      this.refreshPage();
     }
   }
 
